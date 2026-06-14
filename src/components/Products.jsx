@@ -8,7 +8,7 @@ import optimaSecurePdf from './my-optima-secure.pdf'
 import optimaSuperSecurePdf from './Optima-Super-Secure.pdf'
 import optimaSecurePlusPdf from './OptimaSecure+.pdf'
 import energyPlanPdf from './energy-brochure.pdf'
-import kotiSurakshaPdf from './koti-suraksha.pdf'
+import kotiSurakshaPdf from './Koti-Suraksha.pdf'
 
 const products = [
     {
