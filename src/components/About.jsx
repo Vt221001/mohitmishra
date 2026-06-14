@@ -33,10 +33,10 @@ const trustPoints = [
 ]
 
 const journey = [
-  {
-    year: '2014',
-    company: 'AU Bank',
-  },
+  // {
+  //   year: '2014',
+  //   company: 'AU Bank',
+  // },
   {
     year: '2016',
     company: 'RenewBuy',
@@ -118,7 +118,7 @@ export default function About() {
 
             <p className="text-slate-600 leading-relaxed mb-5">
               After spending years working with leading organizations such as
-              HDFC Ergo, RenewBuy, and AU Bank, I realized that clients often
+              HDFC Ergo, RenewBuy, I realized that clients often
               need unbiased guidance rather than being limited to a single
               company's products.
             </p>

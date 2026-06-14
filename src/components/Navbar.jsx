@@ -1,56 +1,95 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Menu, X, ChevronDown } from 'lucide-react'
-
-const navLinks = [
-  {
-    label: 'Insurance Services',
-    children: [
-      { label: 'Life Insurance', href: '#services' },
-      { label: 'Health Insurance', href: '#services' },
-      { label: 'Motor Insurance', href: '#services' },
-      { label: 'Term Insurance', href: '#services' },
-      { label: 'Investment Plans', href: '#services' },
-    ],
-  },
-  { label: 'Our Clients', href: '#clients' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Contact Us', href: '#contact' },
-];
+import { Link, useLocation } from 'react-router-dom'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const location = useLocation()
+
+  const goToSection = (id) => {
+    if (location.pathname !== '/') {
+      window.location.href = `/#${id}`
+      return
+    }
+
+    const element = document.getElementById(id)
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
+    }
+  }
+
+  const navLinks = [
+    {
+      label: 'Insurance Services',
+      children: [
+        { label: 'Life Insurance', section: 'services' },
+        { label: 'Health Insurance', section: 'services' },
+        { label: 'Motor Insurance', section: 'services' },
+        { label: 'Term Insurance', section: 'services' },
+        { label: 'Investment Plans', section: 'services' },
+      ],
+    },
+    {
+      label: 'Products',
+      to: '/products',
+    },
+    {
+      label: 'About Us',
+      section: 'about',
+    },
+    {
+      label: 'Our Clients',
+      section: 'clients',
+    },
+    {
+      label: 'Contact Us',
+      section: 'contact',
+    },
+  ]
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
-        }`}
+      className="
+      fixed
+      top-0
+      left-0
+      right-0
+      z-[9999]
+      bg-white
+      shadow-lg
+      py-3
+      "
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-lg bg-blue-700 flex items-center justify-center">
-            <span className="text-white font-bold text-lg">M</span>
-          </div>
-          <div className="leading-tight">
-            <span className={`font-bold text-xl ${scrolled ? 'text-blue-800' : 'text-white'}`}>
-              Mohit Mishra
+        <Link to="/" className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-blue-700 flex items-center justify-center shadow-lg">
+            <span className="text-white font-bold text-lg">
+              M
             </span>
-            <p className={`text-xs ${scrolled ? 'text-gray-500' : 'text-blue-200'}`}>
+          </div>
+
+          <div>
+            <h2 className="font-bold text-xl text-blue-900">
+              Mohit Mishra
+            </h2>
+
+            <p className="text-xs text-gray-500">
               Trusted Insurance Advisor
             </p>
           </div>
-        </a>
+        </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Menu */}
         <ul className="hidden md:flex items-center gap-8">
+
           {navLinks.map((link) =>
             link.children ? (
               <li
@@ -60,102 +99,205 @@ export default function Navbar() {
                 onMouseLeave={() => setDropdownOpen(false)}
               >
                 <button
-                  className={`flex items-center gap-1 font-medium text-sm transition-colors ${scrolled ? 'text-gray-700 hover:text-blue-700' : 'text-white hover:text-blue-200'
-                    }`}
+                  className="
+                  flex
+                  items-center
+                  gap-1
+                  text-sm
+                  font-medium
+                  text-gray-700
+                  hover:text-blue-700
+                  transition-colors
+                  "
                 >
                   {link.label}
-                  <ChevronDown size={14} />
+                  <ChevronDown size={15} />
                 </button>
+
                 {dropdownOpen && (
-                  <ul className="absolute top-full left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
+                  <div className="absolute top-full left-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+
                     {link.children.map((child) => (
-                      <li key={child.label}>
-                        <a
-                          href={child.href}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
-                        >
-                          {child.label}
-                        </a>
-                      </li>
+                      <button
+                        key={child.label}
+                        onClick={() => goToSection(child.section)}
+                        className="
+                        block
+                        w-full
+                        text-left
+                        px-5
+                        py-3
+                        text-sm
+                        text-gray-700
+                        hover:bg-blue-50
+                        hover:text-blue-700
+                        transition-colors
+                        "
+                      >
+                        {child.label}
+                      </button>
                     ))}
-                  </ul>
+
+                  </div>
                 )}
               </li>
             ) : (
               <li key={link.label}>
-                <a
-                  href={link.href}
-                  className={`font-medium text-sm transition-colors ${scrolled ? 'text-gray-700 hover:text-blue-700' : 'text-white hover:text-blue-200'
-                    }`}
-                >
-                  {link.label}
-                </a>
+                {link.to ? (
+                  <Link
+                    to={link.to}
+                    className="
+                    text-sm
+                    font-medium
+                    text-gray-700
+                    hover:text-blue-700
+                    transition-colors
+                    "
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => goToSection(link.section)}
+                    className="
+                    text-sm
+                    font-medium
+                    text-gray-700
+                    hover:text-blue-700
+                    transition-colors
+                    "
+                  >
+                    {link.label}
+                  </button>
+                )}
               </li>
             )
           )}
+
         </ul>
 
-        {/* CTA Button */}
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center px-5 py-2.5 rounded-lg bg-blue-700 text-white text-sm font-semibold hover:bg-blue-800 transition-colors shadow-md"
-        >
-          Get a Quote
-        </a>
-
-        {/* Mobile Hamburger */}
+        {/* CTA */}
         <button
-          className={`md:hidden p-2 rounded-lg ${scrolled ? 'text-gray-700' : 'text-white'}`}
+          onClick={() => goToSection('contact')}
+          className="
+          hidden
+          md:inline-flex
+          items-center
+          px-5
+          py-3
+          rounded-xl
+          bg-blue-700
+          text-white
+          text-sm
+          font-semibold
+          hover:bg-blue-800
+          transition
+          shadow-lg
+          "
+        >
+          Free Consultation
+        </button>
+
+        {/* Mobile Toggle */}
+        <button
+          className="md:hidden text-gray-800"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          {menuOpen ? (
+            <X size={26} />
+          ) : (
+            <Menu size={26} />
+          )}
         </button>
+
       </nav>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white shadow-xl border-t border-gray-100 px-6 py-4">
-          <ul className="flex flex-col gap-4">
-            {navLinks.map((link) =>
-              link.children ? (
-                <li key={link.label}>
-                  <p className="font-semibold text-gray-800 mb-1">{link.label}</p>
-                  <ul className="pl-4 flex flex-col gap-2">
-                    {link.children.map((child) => (
-                      <li key={child.label}>
-                        <a
-                          href={child.href}
-                          className="text-sm text-gray-600 hover:text-blue-700"
-                          onClick={() => setMenuOpen(false)}
-                        >
-                          {child.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ) : (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="font-medium text-gray-700 hover:text-blue-700 text-sm"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              )
-            )}
-            <li>
-              <a
-                href="#contact"
-                className="block text-center mt-2 px-5 py-2.5 rounded-lg bg-blue-700 text-white text-sm font-semibold hover:bg-blue-800 transition-colors"
-                onClick={() => setMenuOpen(false)}
-              >
-                Get a Quote
-              </a>
-            </li>
-          </ul>
+        <div className="md:hidden bg-white border-t border-gray-100 shadow-xl">
+
+          <div className="px-6 py-5">
+
+            <ul className="space-y-4">
+
+              {navLinks.map((link) =>
+                link.children ? (
+                  <li key={link.label}>
+
+                    <p className="font-semibold text-gray-800 mb-2">
+                      {link.label}
+                    </p>
+
+                    <ul className="pl-4 space-y-2">
+
+                      {link.children.map((child) => (
+                        <li key={child.label}>
+                          <button
+                            onClick={() => {
+                              goToSection(child.section)
+                              setMenuOpen(false)
+                            }}
+                            className="text-sm text-gray-600 hover:text-blue-700"
+                          >
+                            {child.label}
+                          </button>
+                        </li>
+                      ))}
+
+                    </ul>
+
+                  </li>
+                ) : (
+                  <li key={link.label}>
+                    {link.to ? (
+                      <Link
+                        to={link.to}
+                        onClick={() => setMenuOpen(false)}
+                        className="text-sm font-medium text-gray-700 hover:text-blue-700"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          goToSection(link.section)
+                          setMenuOpen(false)
+                        }}
+                        className="text-sm font-medium text-gray-700 hover:text-blue-700"
+                      >
+                        {link.label}
+                      </button>
+                    )}
+                  </li>
+                )
+              )}
+
+              <li>
+                <button
+                  onClick={() => {
+                    goToSection('contact')
+                    setMenuOpen(false)
+                  }}
+                  className="
+                  block
+                  w-full
+                  text-center
+                  bg-blue-700
+                  text-white
+                  py-3
+                  rounded-xl
+                  font-semibold
+                  mt-4
+                  "
+                >
+                  Free Consultation
+                </button>
+              </li>
+
+            </ul>
+
+          </div>
+
         </div>
       )}
     </header>

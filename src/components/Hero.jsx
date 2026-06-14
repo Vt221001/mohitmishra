@@ -150,10 +150,10 @@ export default function Hero() {
                     <p className="text-sm text-slate-500">RenewBuy</p>
                   </div>
 
-                  <div>
+                  {/* <div>
                     <p className="text-xl font-bold text-slate-900">2 Years</p>
                     <p className="text-sm text-slate-500">AU Bank</p>
-                  </div>
+                  </div> */}
 
                   <div>
                     <p className="text-xl font-bold text-slate-900">1000+</p>
