@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ArrowRight, ChevronDown, ShieldCheck, HeartPulse, Briefcase } from 'lucide-react'
-import p1 from "./p1.png";
+import p1 from "./p1.jpeg";
 
 const slides = [
   {
@@ -141,19 +141,19 @@ export default function Hero() {
                 <div className="grid grid-cols-2 gap-4 mt-5">
 
                   <div>
-                    <p className="text-xl font-bold text-slate-900">6 Years</p>
+                    <p className="text-xl font-bold text-slate-900">10+ Years</p>
                     <p className="text-sm text-slate-500">HDFC Ergo</p>
                   </div>
 
                   <div>
-                    <p className="text-xl font-bold text-slate-900">2 Years</p>
+                    <p className="text-xl font-bold text-slate-900">2+ Years</p>
                     <p className="text-sm text-slate-500">RenewBuy</p>
                   </div>
 
-                  {/* <div>
-                    <p className="text-xl font-bold text-slate-900">2 Years</p>
-                    <p className="text-sm text-slate-500">AU Bank</p>
-                  </div> */}
+                  <div>
+                    <p className="text-xl font-bold text-slate-900">100%</p>
+                    <p className="text-sm text-slate-500">CSR(Claim Settlement Ratio)</p>
+                  </div>
 
                   <div>
                     <p className="text-xl font-bold text-slate-900">1000+</p>

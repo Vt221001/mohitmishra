@@ -298,7 +298,8 @@ export default function Contact() {
                   px-8
                   py-4
                   rounded-2xl
-                  bg-blue-700
+                  bg-gradient-to-r
+                    from-slate-950 via-blue-950 to-blue-900
                   text-white
                   font-semibold
                   hover:bg-blue-800
@@ -331,7 +332,8 @@ export default function Contact() {
                   px-5
                   py-3
                   rounded-xl
-                  bg-blue-700
+                  bg-gradient-to-r
+                    from-slate-950 via-blue-950 to-blue-900
                   text-white
                   font-semibold
                   "
